@@ -12,10 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('category_posts', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('post_id')->constrained('posts')->cascadeOnDelete(); // 外部キー: posts.id
-        $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete(); // 外部キー: categories.id
-        $table->primary(['post_id', 'category_id']); // 複合主キー
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete(); // 外部キー: categories.id
+            $table->primary(['post_id', 'category_id']); // 複合主キー
             $table->timestamps();
         });
     }
