@@ -12,5 +12,6 @@ class posts extends Model
         'user_id',
         'title',
         'content',
+        'thumbnail',
     ];
 }

@@ -1,26 +1,49 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            フォーム
+            投稿作成
         </h2>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto px-6">
-        <form method="post" action="{{ route('post.store') }}">
-            @csrf
-            <div class="mt-8">
-                <div class="w-full flex flex-col">
-                    <label for="title" class="font-semibold mt-4">件名</label>
-                    <input type="text" name="title" class="w-auto py-2 border border-gray-300 rounded-md" id="title">
-                </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="p-6 bg-white border-b border-gray-200">
+                <form method="post" action="{{ route('post.store') }}" enctype="multipart/form-data">
+                    @csrf
+
+                    <!-- タイトル -->
+                    <div class="mb-4">
+                        <label for="title" class="block text-sm font-medium text-gray-700">タイトル</label>
+                        <input type="text" name="title" id="title" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('title') }}">
+                        @error('title')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- コンテンツ -->
+                    <div class="mb-4">
+                        <label for="content" class="block text-sm font-medium text-gray-700">コンテンツ</label>
+                        <textarea name="content" id="content" rows="4" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">{{ old('content') }}</textarea>
+                        @error('content')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- サムネイル -->
+                    <div class="mb-4">
+                        <label for="thumbnail" class="block text-sm font-medium text-gray-700">サムネイル</label>
+                        <input type="file" name="thumbnail" id="thumbnail" class="mt-1 block w-full text-sm text-gray-900 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" accept="image/*">
+                        @error('thumbnail')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- 送信ボタン -->
+                    <div>
+                        <x-primary-button>投稿する</x-primary-button>
+                    </div>
+                </form>
             </div>
-            <div class="w-full flex flex-col">
-                <label for="content" class="font-semibold mt-4">本文</label>
-                <textarea name="content" class="w-auto py-2 border border-gray-300 rounded-md" id="content" cols="30" rows="5"></textarea>
-            </div>
-            <x-primary-button class="mt-4">
-                送信する
-            </x-primary-button>
-        </form>
+        </div>
     </div>
 </x-app-layout>
