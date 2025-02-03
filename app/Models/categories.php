@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class categories extends Model
 {
-    //
+    use HasFactory;
+
+    protected $fillable = ['name', 'slug'];
+
+    public function posts()
+    {
+        return $this->belongsToMany(posts::class);
+    }
 }

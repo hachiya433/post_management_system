@@ -20,6 +20,16 @@
             <p class="mt-4 p-4">
                 {{$post->content}}
             </p>
+            <p class="mt-4 p-4">
+            状態: 
+            @if ($post->status === 'published')
+                公開
+            @elseif ($post->status === 'draft')
+                下書き
+            @else
+                アーカイブ済み
+            @endif
+            </p>
             <div class="p-4 text-sm font-semibold">
                 <p>
                     {{$post->created_at}}
