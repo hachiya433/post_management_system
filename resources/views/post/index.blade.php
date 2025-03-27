@@ -4,7 +4,15 @@
             一覧表示
         </h2>
     </x-slot>
-
+<!-- 投稿ページ上部にカテゴリー一覧を表示 -->
+<div class="categories">
+        <h3>カテゴリー一覧</h3>
+        <ul>
+            @foreach ($categories as $category)
+                <li><a href="{{ route('category.show', $category->slug) }}">{{ $category->name }}</a></li>
+            @endforeach
+        </ul>
+    </div>
     <div class="mx-auto px-6">
         @foreach($posts as $post)
         <div class="mt-4 p-8 bg-white w-full rounded-2xl">

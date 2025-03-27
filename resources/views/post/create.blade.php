@@ -38,6 +38,19 @@
                         @enderror
                     </div>
 
+                    <!-- カテゴリー -->
+                    <div class="mb-4">
+                        <label for="categories" class="block text-sm font-medium text-gray-700">カテゴリー</label>
+                        <select name="categories[]" id="categories" multiple class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('categories')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <!-- ステータス -->
                     <div class="mb-4">
                         <label for="status">ステータス</label>

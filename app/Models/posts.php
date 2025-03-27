@@ -18,7 +18,7 @@ class posts extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(categories::class, 'category_post', 'post_id', 'category_id');
+        return $this->belongsToMany(categories::class, 'category_posts', 'post_id', 'category_id');
     }
 
     // 公開記事のみ取得するスコープ

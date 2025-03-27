@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class categories extends Model
@@ -12,6 +12,6 @@ class categories extends Model
 
     public function posts()
     {
-        return $this->belongsToMany(posts::class);
+        return $this->belongsToMany(posts::class, 'category_posts');
     }
 }
