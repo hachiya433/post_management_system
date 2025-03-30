@@ -5,14 +5,19 @@
         </h2>
     </x-slot>
 <!-- 投稿ページ上部にカテゴリー一覧を表示 -->
-<div class="categories">
-        <h3>カテゴリー一覧</h3>
-        <ul>
-            @foreach ($categories as $category)
-                <li><a href="{{ route('category.show', $category->slug) }}">{{ $category->name }}</a></li>
-            @endforeach
-        </ul>
-    </div>
+<div class="categories bg-white p-4 rounded-lg shadow-md mb-6">
+    <h3 class="text-lg font-semibold text-gray-800 mb-4">カテゴリー一覧</h3>
+    <ul class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        @foreach ($categories as $cat)
+            <li>
+                <a href="{{ route('category.show', $cat->slug) }}" 
+                   class="block px-4 py-2 text-sm font-medium text-gray-700 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors duration-200">
+                    {{ $cat->name }}
+                </a>
+            </li>
+        @endforeach
+    </ul>
+</div>
     <div class="mx-auto px-6">
         @foreach($posts as $post)
         <div class="mt-4 p-8 bg-white w-full rounded-2xl">
@@ -45,5 +50,7 @@
             </div>
         </div>
         @endforeach
+
+    {{ $posts->links() }}
     </div>
 </x-app-layout>

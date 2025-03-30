@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\posts;
 use Illuminate\Support\Facades\Auth;
 use App\Models\categories;
+
 class PostController extends Controller
 {
     public function create()
@@ -51,11 +52,13 @@ class PostController extends Controller
 
         return back()->with('success', '投稿が作成されました！');
     }
+
     public function index()
     {
         $posts = posts::published()->get(); // 公開記事のみ取得
         $categories = categories::all(); // すべてのカテゴリーを取得
-        return view('post.index', compact('posts', 'categories'));
+        $posts = posts::paginate(9); // 1ページあたり9件取得
+        return view('post.index', compact('posts', 'categories', 'posts'));
     }
 
     public function showDrafts()
@@ -70,15 +73,15 @@ class PostController extends Controller
         return view('post.index', compact('posts'));
     }
 
-    public function show($slug)
-{
-    // スラッグでカテゴリーを取得
-    $category = categories::where('slug', $slug)->firstOrFail();
+    public function showCategory($slug)
+    {
+        // スラッグでカテゴリーを取得
+        $category = categories::where('slug', $slug)->firstOrFail();
 
-    // カテゴリーに関連する公開された投稿を取得
-    $posts = $category->posts()->published()->get(); // 公開された投稿のみ取得
+        // カテゴリーに関連する公開された投稿を取得
+        $posts = $category->posts()->published()->get(); // 公開された投稿のみ取得
 
-    // ビューにカテゴリーと投稿を渡す
-    return view('post.index', compact('category', 'posts'));
-}
+        // ビューにカテゴリーと投稿を渡す
+        return view('post.index', compact('category', 'posts'));
+    }
 }
